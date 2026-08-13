@@ -1,0 +1,17 @@
+# DEMO ONLY — fails Kyverno in namespace devsecops-demo:
+# privileged, allowPrivilegeEscalation, no resource limits, image :latest
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bad-devsecops-pod
+  namespace: devsecops-demo
+  labels:
+    app: devsecops-demo
+    demo: vulnerable
+spec:
+  containers:
+    - name: app
+      image: nginx:latest
+      securityContext:
+        privileged: true
+        allowPrivilegeEscalation: true
