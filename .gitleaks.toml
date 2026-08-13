@@ -1,0 +1,7 @@
+# Intentional vulnerable fixtures for demo PRs — not production secrets.
+title = "devsecops-demo gitleaks"
+
+[allowlist]
+paths = [
+  '''fixtures/vulnerable/''',
+]

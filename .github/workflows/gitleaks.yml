@@ -34,14 +34,18 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             gitleaks detect \
+              --config .gitleaks.toml \
               --source . \
               --log-opts="origin/${{ github.base_ref }}..HEAD" \
               --verbose \
               --redact \
               --exit-code 1
           else
+            # Main/master: scan working tree only (fixtures/vulnerable allowlisted).
             gitleaks detect \
+              --config .gitleaks.toml \
               --source . \
+              --no-git \
               --verbose \
               --redact \
               --exit-code 1
