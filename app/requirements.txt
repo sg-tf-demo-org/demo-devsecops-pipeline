@@ -1,0 +1,5 @@
+# DEMO ONLY — pin with known HIGH/CRITICAL history for Trivy fs demos.
+# Expected fail: urllib3 1.26.5 has multiple CVEs (e.g. CVE-2021-33503).
+# Compliant twin: fixtures/compliant/requirements.txt
+urllib3==1.26.5
+requests==2.25.1
