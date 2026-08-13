@@ -1,0 +1,3 @@
+# Compliant twin — current patched pins (bump further if Trivy still flags).
+urllib3>=2.2.0
+requests>=2.32.0
