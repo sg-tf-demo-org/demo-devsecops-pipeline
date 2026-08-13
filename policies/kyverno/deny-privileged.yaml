@@ -1,0 +1,27 @@
+# Namespace-scoped: only namespace devsecops-demo (does not affect otel-demo / other ns)
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: deny-privileged
+  namespace: devsecops-demo
+  annotations:
+    policies.kyverno.io/title: Deny privileged containers
+    policies.kyverno.io/description: Demo gate — privileged or allowPrivilegeEscalation true is blocked.
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: deny-privileged-or-escalation
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "devsecops-demo: privileged containers and allowPrivilegeEscalation are forbidden"
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  privileged: "false"
+                  allowPrivilegeEscalation: "false"

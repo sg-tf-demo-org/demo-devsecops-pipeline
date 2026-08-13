@@ -1,0 +1,25 @@
+# Namespace-scoped: only namespace devsecops-demo
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: deny-latest-tag
+  namespace: devsecops-demo
+  annotations:
+    policies.kyverno.io/title: Deny image tag latest
+    policies.kyverno.io/description: Demo gate — image tags must be pinned (not :latest).
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: deny-latest
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "devsecops-demo: image tag :latest is forbidden; pin a digest or semver tag"
+        pattern:
+          spec:
+            containers:
+              - image: "!*:latest"

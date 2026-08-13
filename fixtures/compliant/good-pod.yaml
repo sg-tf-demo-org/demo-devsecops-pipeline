@@ -1,0 +1,28 @@
+# Compliant twin — non-priv, pinned tag, CPU/memory limits
+apiVersion: v1
+kind: Pod
+metadata:
+  name: good-devsecops-pod
+  namespace: devsecops-demo
+  labels:
+    app: devsecops-demo
+    demo: compliant
+spec:
+  containers:
+    - name: app
+      image: nginx:1.27.3
+      securityContext:
+        privileged: false
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        runAsUser: 101
+        capabilities:
+          drop:
+            - ALL
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi

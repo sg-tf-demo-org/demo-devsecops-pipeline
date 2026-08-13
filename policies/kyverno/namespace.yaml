@@ -1,0 +1,8 @@
+# Namespace for DevSecOps admission demos only — never apply policies outside this ns.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devsecops-demo
+  labels:
+    app.kubernetes.io/name: devsecops-demo
+    demo.stackgen.com/track: devsecops

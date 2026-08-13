@@ -1,0 +1,24 @@
+name: trivy-fs
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trivy-fs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trivy filesystem / dependency scan (vulnerable fixtures)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: fixtures/vulnerable
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          ignore-unfixed: false

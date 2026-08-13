@@ -1,0 +1,28 @@
+# Namespace-scoped: only namespace devsecops-demo
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: require-resource-limits
+  namespace: devsecops-demo
+  annotations:
+    policies.kyverno.io/title: Require CPU and memory limits
+    policies.kyverno.io/description: Demo gate — every container must set cpu and memory limits.
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: check-container-limits
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "devsecops-demo: every container must set resources.limits.cpu and resources.limits.memory"
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  limits:
+                    memory: "?*"
+                    cpu: "?*"

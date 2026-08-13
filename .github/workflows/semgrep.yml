@@ -1,0 +1,26 @@
+name: semgrep
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Semgrep OSS scan
+        run: |
+          semgrep scan \
+            --config=p/python \
+            --config=p/security-audit \
+            --error \
+            --metrics=off \
+            fixtures/
