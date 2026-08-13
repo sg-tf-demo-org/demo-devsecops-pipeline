@@ -23,4 +23,4 @@ jobs:
             --config=p/security-audit \
             --error \
             --metrics=off \
-            fixtures/
+            fixtures/ app/

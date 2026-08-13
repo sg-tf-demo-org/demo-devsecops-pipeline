@@ -12,7 +12,7 @@ on:
       fixture_path:
         description: "Dockerfile directory under fixtures/"
         required: false
-        default: "fixtures/compliant"
+        default: "app"
 
 permissions:
   contents: read
@@ -23,7 +23,7 @@ jobs:
   image:
     runs-on: ubuntu-latest
     env:
-      FIXTURE: ${{ github.event.inputs.fixture_path || 'fixtures/compliant' }}
+      FIXTURE: ${{ github.event.inputs.fixture_path || 'app' }}
       IMAGE_NAME: devsecops-demo
     steps:
       - uses: actions/checkout@v4
